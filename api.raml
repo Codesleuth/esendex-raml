@@ -1,0 +1,127 @@
+#%RAML 0.8
+---
+title: Esendex
+baseUri: https://api.esendex.com
+version: 2015-12-18
+securitySchemes:
+  - basic:
+      description: Esendex requires Basic Authentication for every API request
+      type: Basic Authentication
+securedBy: [basic]
+traits:
+  - paged:
+      description: This resource is paged
+      queryParameters:
+        startindex:
+          description: The zero-based index of the first resource to return
+          type: number
+          default: 0
+        count:
+          description: The number of resources to return
+          type: number
+          default: 100
+/v1.0:
+  /messagedispatcher:
+    displayName: Message Dispatcher
+    description: The Message Dispatcher resource can be used to send one or more SMS and Voice messages either straight away or scheduled in the future at a later point. The XML request object will contain the details of the message(s) to be sent and will generate a message batch response containing a URI to allow future queries to discover the status of the message(s).
+    post:
+      body:
+        application/xml:
+          schema: !include schemas/v1.0/requests/messagedispatcher/post.xsd
+          example: !include examples/v1.0/requests/messagedispatcher/post.xml
+      responses:
+        200:
+          body:
+            application/xml:
+              schema: !include schemas/v1.0/responses/messagedispatcher/post.xsd
+              example: !include examples/v1.0/responses/messagedispatcher/post.xml
+  /accounts:
+    displayName: Accounts
+    get:
+      responses:
+        200:
+          body:
+            application/xml:
+              example: !include examples/v1.0/responses/accounts/get-all.xml
+    /{accountId}:
+      uriParameters:
+        accountId:
+          displayName: Account ID
+          type: string
+          pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$ # a GUID
+          minLength: 36
+          maxLength: 36
+      get:
+        responses:
+          200:
+            body:
+              application/xml:
+                example: !include examples/v1.0/responses/accounts/get-single.xml
+      /settings:
+        get:
+          responses:
+            200:
+              body:
+                application/xml:
+                  example: !include examples/v1.0/responses/accounts/settings/get.xml
+        put:
+          body:
+            application/xml:
+              schema: !include schemas/v1.0/requests/accounts/settings/put.xsd
+              example: !include examples/v1.0/requests/accounts/settings/put.xml
+          responses:
+            200:
+              body:
+                application/xml:
+                  example: !include examples/v1.0/responses/accounts/settings/get.xml
+  /messageheaders:
+    displayName: Message Headers
+    description: The Message Headers resource can be used to query messages which have been sent from an Esendex Account. It also allows individual Messages to be queried for more details.
+    get:
+      is: [paged]
+      responses:
+        200:
+          body:
+            application/xml:
+              # schema: !include schemas/v1.0/responses/messageheaders/get-all.xsd
+              example: !include examples/v1.0/responses/messageheaders/get-all.xml
+    /{messageHeaderId}:
+      uriParameters:
+        messageHeaderId:
+          displayName: Message Header ID
+          type: string
+          pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$ # a GUID
+          minLength: 36
+          maxLength: 36
+      get:
+        responses:
+          200:
+            body:
+              application/xml:
+                # schema: !include schemas/v1.0/responses/messageheaders/get-single.xsd
+                example: !include examples/v1.0/responses/messageheaders/get-single.xml
+/v1.1:
+  /messagebatches:
+    displayName: Message Headers
+    get:
+      is: [paged]
+      responses:
+        200:
+          body:
+            application/xml:
+              schema: MessageBatchesGetAll
+              example: !include examples/v1.0/responses/messagebatches/get-all.xml
+    /{messageBatchId}:
+      uriParameters:
+        messageBatchId:
+          displayName: Message Batch ID
+          type: string
+          pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$ # a GUID
+          minLength: 36
+          maxLength: 36
+      get:
+        responses:
+          200:
+            body:
+              application/xml:
+                example: !include examples/v1.0/responses/messagebatches/get-single.xml

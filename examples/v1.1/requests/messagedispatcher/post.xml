@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>  
+<messages xmlns="http://api.esendex.com/ns/">  
+  <accountreference>EX0000000</accountreference>
+  <message>
+    <to>447700900123</to>
+    <body>Every message matters!</body>
+  </message>  
+</messages>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema attributeFormDefault="unqualified"
+           elementFormDefault="unqualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="langType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="en-GB">
+        <xs:annotation>
+          <xs:documentation>English UK</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="en-AU">
+        <xs:annotation>
+          <xs:documentation>English-Australian</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fr-FR">
+        <xs:annotation>
+          <xs:documentation>French</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-ES">
+        <xs:annotation>
+          <xs:documentation>Spanish</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="de-DE">
+        <xs:annotation>
+          <xs:documentation>German</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="charactersetType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="GSM">
+        <xs:annotation>
+          <xs:documentation>GSM 03.38</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Unicode">
+        <xs:annotation>
+          <xs:documentation>Unicode</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Auto">
+        <xs:annotation>
+          <xs:documentation>Automatically select between GSM and Unicode</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="typeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SMS">
+        <xs:annotation>
+          <xs:documentation>A short message</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Voice">
+        <xs:annotation>
+          <xs:documentation>A voice message</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="messages">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="accountreference" type="xs:string" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>Required: The Esendex Account reference that the messages should be sent from. This is a required element.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="from" type="xs:string" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>The default alphanumeric originator that the message appears to originate from. Can be overridden on a per message basis. 
+This must be either a valid phone number or an alphanumeric value with a maximum length of 11 characters, that may contain letters, numbers and the following special characters: 
+* $ ? ! &quot; # % &amp; _ - , @ ' +</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="type" type="typeType" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>The default type of all messages to be sent: either SMS or Voice. Can be overridden on a per-message basis.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="lang" type="langType" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>Voice only: The default language to use for all Voice SMS messages in this request. Currently supports: en-GB (English UK), en-AU(English-Australian), fr-FR (French), es-ES (Spanish) and de-DE (German).</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="retries" type="xs:integer" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>Voice only: The default number of times for all messages in this request to attempt to call and deliver a Voice SMS message.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="validity" type="xs:integer" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>SMS only: The default validity period in hours for all messages in this request (defaults to 0 which indicates the MAX allowed).</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="sendat" type="xs:string" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>The time to schedule the messages for delivery for all messages in this request. It cannot be overridden on a per-message basis. 
+The format is yyyy-MM-ddThh:mm:ssZ where y=year, M=month, d=day, T=separator, h=hour, m=min and s=seconds. The value is treated as per ISO 8601 semantics, e.g. without time zone information the value is assumed to be the local time of the server, otherwise as an offset from UTC with Z representing a UTC time</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="characterset" type="charactersetType" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>The default character set of the messages to be used when not specified within each message. Valid values are: GSM, Unicode and Auto.
+When using Auto the most appropriate character set is automatically detected. The default value is GSM.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="message" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="from" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>The alphanumeric originator for the message to appear to originate from. This will override any <from> value set in the <messages> section.
+This must be either a valid phone number or an alphanumeric value with a maximum length of 11 characters, that may contain letters, numbers and the following special characters: 
+* $ ? ! &quot; # % &amp; _ - , . @ ' +</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="to" type="xs:string" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>Required: The telephone number or numbers to send this message to. Multiple telephone numbers must be comma separated.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="type" type="typeType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>The type of the message to be sent: either SMS or Voice. If no type is specified, the default is SMS.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="body" type="xs:string" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>Required: The message content.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="lang" type="langType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>Required for Voice only: The language to use for this Voice SMS message. Currently supports: en-GB (English UK), en-AU (English Australian), fr-FR(French), es-ES (Spanish) and de-DE (German).</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="retries" type="xs:integer" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>Voice only: The number of times to attempt to call and deliver a Voice SMS message.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="validity" type="xs:integer" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>SMS only: The validity period for this message in hours (defaults to 0 which indicates the MAX allowed).</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="characterset" type="charactersetType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>The character set of the message to be used. Valid values are: GSM, Unicode and Auto.
+When using Auto the most appropriate character set is automatically detected. The default value is GSM, unless specified in the messages element.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

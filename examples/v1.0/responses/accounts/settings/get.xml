@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<accountsettings xmlns="http://api.esendex.com/ns/">
+  <concurrencyid>ems:00000000-0000-0000-0000-000000000000,options:b988f5ec-e9bb-41a7-b6d6-9115b3dbb78a</concurrencyid>
+  <outbound>
+    <defaultaliasenabled>true</defaultaliasenabled>
+    <defaultalias>MyAlias</defaultalias>
+    <defaultvalidity>24</defaultvalidity>
+    <smstolandlineenabled>false</smstolandlineenabled>
+  </outbound>
+  <autoresponse>
+    <enabled>false</enabled>
+    <message>this is my auto response</message>
+    <type>SMS</type>
+    <accountreference>EX000000</accountreference>
+  </autoresponse>
+  <emailforwarding>
+    <enabled>false</enabled>
+    <emailaddress>email@server.com</emailaddress>
+    <omitfooter>false</omitfooter>
+    <hideoriginator>false</hideoriginator>
+  </emailforwarding>
+  <emailnotification>
+    <deliveryenabled>false</deliveryenabled>
+    <failedenabled>false</failedenabled>
+  </emailnotification>
+  <emailgeneral>
+    <directreplyenabled>false</directreplyenabled>
+    <directreplyincludeoriginalmessage>false</directreplyincludeoriginalmessage>
+    <signaturemarker>---</signaturemarker>
+  </emailgeneral>
+  <pushnotifications>
+    <alertemailenabled>false</alertemailenabled>
+    <alertemailaddress>email@server.com</alertemailaddress>
+  </pushnotifications>
+  <voice>
+    <skipfirstvoicemenu>false</skipfirstvoicemenu>
+  </voice>
+</accountsettings>

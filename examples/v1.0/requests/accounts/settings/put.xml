@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<accountsettings xmlns="http://api.esendex.com/ns/">
+  <concurrencyid>ems:00000000-0000-0000-0000-000000000000, options:C9D87BA9-2736-4F5C-BE0E-3B57997D813D</concurrencyid> 
+  <outbound> 
+    <defaultaliasenabled>true</defaultaliasenabled> 
+    <defaultalias>MyAlias</defaultalias> 
+    <defaultvalidity>24</defaultvalidity> 
+  </outbound> 
+  <autoresponse> 
+    <enabled>false</enabled> 
+    <message>this is my auto response</message> 
+    <type>SMS</type> 
+  </autoresponse> 
+</accountsettings>
