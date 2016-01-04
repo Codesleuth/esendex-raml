@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema attributeFormDefault="qualified"
+           elementFormDefault="qualified"
+           targetNamespace="http://api.esendex.com/ns/"
+           xmlns:ns="http://api.esendex.com/ns/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="account">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="label" type="xs:string" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>A text label for the Account. This will appear in Esendex applications and can be used to give the Account a "friendly name". Can be from 0 to 50 characters long.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

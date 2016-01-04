@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<account xmlns="http://api.esendex.com/ns/"> 
+  <label>My Label</label>
+</account>

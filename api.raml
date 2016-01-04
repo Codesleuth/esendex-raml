@@ -57,6 +57,13 @@ traits:
             body:
               application/xml:
                 example: !include examples/v1.0/responses/accounts/get-single.xml
+      put:
+        body:
+          application/xml:
+            schema: !include schemas/v1.0/requests/accounts/put.xsd
+            example: !include examples/v1.0/requests/accounts/put.xml
+        responses:
+          200:
       /settings:
         get:
           responses:
@@ -100,6 +107,31 @@ traits:
               application/xml:
                 # schema: !include schemas/v1.0/responses/messageheaders/get-single.xsd
                 example: !include examples/v1.0/responses/messageheaders/get-single.xml
+  /inbox:
+    /messages:
+      displayName: Inbox Messages
+      description: The Inbox resource can be used to query Messages which have been received into an Esendex Account. The most common uses of the Inbox resource are to ‘pull’ (retrieve) the Inbound Messages and delete those Messages that have been processed.
+      get:
+        is: [paged]
+        queryParameters:
+          start:
+            displayName: The start date to filter the results from, represented in ISO 8601 format.
+            type: string
+            pattern: ^\d{4}-\d{2}-\d{2}T\d{2}\:\d{2}\:\d{2}(?:[+-]\d{2}\:\d{2})|Z$
+            minLength: 20
+            maxLength: 25
+          finish:
+            displayName: The end date to filter the results to, represented in ISO 8601 format.
+            type: string
+            pattern: ^\d{4}-\d{2}-\d{2}T\d{2}\:\d{2}\:\d{2}(?:[+-]\d{2}\:\d{2})|Z$
+            minLength: 20
+            maxLength: 25
+            example: '2016-01-04T13:18:20Z'
+        responses:
+          200:
+            body:
+              application/xml:
+                example: !include examples/v1.0/responses/inbox/messages/get-all.xml
 /v1.1:
   /messagebatches:
     displayName: Message Headers
