@@ -20,6 +20,17 @@ traits:
           description: The number of resources to return
           type: number
           default: 100
+  - accountFiltered:
+      description: This resource can be filtered by a specific account reference
+      queryParameters:
+        filterBy:
+          description: A filter name which must be followed by a filterValue parameter
+          type: string
+          example: account
+        filterValue:
+          description: A filter value which must follow a filterBy parameter
+          type: string
+          example: EX000000
 /v1.0:
   /messagedispatcher:
     displayName: Message Dispatcher
@@ -135,14 +146,16 @@ traits:
 /v1.1:
   /messagebatches:
     displayName: Message Headers
+    description: The Message Batches resource can be used to query the Batches of Messages which have been sent from an Esendex Account. A common use of the Message Batches resource is to retrieve a summary of the status codes for the Messages which indicates the delivery progress. Any Message Batches scheduled to be sent in the future can also be cancelled.
     get:
-      is: [paged]
+      displayName: Retrieve Message Batches
+      description: Retrieves a list of Message Batches
+      is: [paged, accountFiltered]
       responses:
         200:
           body:
             application/xml:
-              schema: MessageBatchesGetAll
-              example: !include examples/v1.0/responses/messagebatches/get-all.xml
+              example: !include examples/v1.1/responses/messagebatches/get-all.xml
     /{messageBatchId}:
       uriParameters:
         messageBatchId:
@@ -152,8 +165,43 @@ traits:
           minLength: 36
           maxLength: 36
       get:
+        displayName: Retrieve a single Message Batch
+        description: Retrieves a single Message Batch identified by ID
         responses:
           200:
+            headers:
+              ETag:
+                description: The concurrency ID of the Message Batch for use when setting the batch name
+                example: |
+                  ETag: "e461a6a7-be6e-4e73-9221-0c9bdfe5d6d9"
             body:
               application/xml:
-                example: !include examples/v1.0/responses/messagebatches/get-single.xml
+                example: !include examples/v1.1/responses/messagebatches/get-single.xml
+      put:
+        displayName: Name a Message Batch
+        description: Sets a name for the Message Batch which will be available when subsequently retrieving the Message Batch resource
+        headers:
+          If-Match:
+            type: string
+            required: false
+            description: When set, will fail any request where the Message Batch concurrency ID is different to the one specified
+            example: |
+              If-Match: "e461a6a7-be6e-4e73-9221-0c9bdfe5d6d9"
+          If-None-Match:
+            type: string
+            required: false
+            description: When set, will fail any request where the Message Batch concurrency ID is the same as the one specified
+            example: |
+              If-None-Match: "e461a6a7-be6e-4e73-9221-0c9bdfe5d6d9"
+        responses:
+          204:
+            headers:
+              ETag:
+                description: The concurrency ID of the Message Batch
+          412:
+      /schedule:
+        delete:
+          displayName: Delete a scheduled Message Batch.
+          description: If a Message Batch is scheduled to go out at a later time and this time is outside the cut off period of 5 minutes, the Message Batch response will contain a LINK element with REL attribute with value CANCEL. The HREF attribute for the LINK element provides a URI for cancelling the sending of a scheduled Batch.
+          responses:
+            204:
