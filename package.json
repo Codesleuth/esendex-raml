@@ -1,0 +1,22 @@
+{
+  "name": "esendex-raml",
+  "version": "0.0.1",
+  "description": "The Esendex REST API, documented in RAML",
+  "main": "",
+  "scripts": {
+    "build": "raml2html api.raml > out/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Codesleuth/esendex-raml.git"
+  },
+  "author": "David Wood <david.p.wood@gmail.com> (http://www.codesleuth.co.uk)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Codesleuth/esendex-raml/issues"
+  },
+  "homepage": "https://github.com/Codesleuth/esendex-raml#readme",
+  "devDependencies": {
+    "raml2html": "^2.1.2"
+  }
+}
