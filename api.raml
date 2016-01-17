@@ -154,6 +154,26 @@ traits:
             body:
               application/xml:
                 example: !include examples/v1.0/responses/inbox/messages/get-all.xml
+  /messagesinformation:
+    displayName: Messages Information
+    description: |
+      The Messages Information resource can be used to obtain information for a message
+      to help understand the costs involved in sending the message.
+    post:
+      displayName: Analyse one or more messages
+      description: |
+        Analyse one or more messages for information such as the character set it falls
+        into, and the number of parts required to send the message.
+      body:
+        application/xml:
+          schema: !include schemas/v1.0/requests/messages/information/post.xsd
+          example: !include examples/v1.0/requests/messages/information/post.xml
+      responses:
+        200:
+          body:
+            application/xml:
+              schema: !include schemas/v1.0/responses/messages/information/post.xsd
+              example: !include examples/v1.0/responses/messages/information/post.xml
 /v1.1:
   /messagebatches:
     displayName: Message Headers

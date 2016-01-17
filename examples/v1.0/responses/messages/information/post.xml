@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response xmlns="http://api.esendex.com/ns/">
+ <messages>
+  <message elementat="0">
+   <parts>1</parts>
+   <characterset>GSM</characterset>
+   <availablecharactersinlastpart>138</availablecharactersinlastpart>
+  </message>
+ </messages>
+ <errors />
+</response>

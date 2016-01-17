@@ -4,7 +4,7 @@
   "description": "The Esendex REST API, documented in RAML",
   "main": "",
   "scripts": {
-    "build": "raml2html api.raml > out/index.html"
+    "build": "node build.js"
   },
   "repository": {
     "type": "git",

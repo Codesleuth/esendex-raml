@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<messages xmlns="http://api.esendex.com/ns/">
+ <message>
+  <body>Every message matters!</body>
+  <characterset>Auto</characterset>
+ </message>
+</messages>

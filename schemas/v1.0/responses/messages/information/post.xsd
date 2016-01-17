@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           targetNamespace="http://api.esendex.com/ns/"
+           xmlns:ns="http://api.esendex.com/ns/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+           
+  <xs:simpleType name="charactersetType" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="GSM">
+        <xs:annotation>
+          <xs:documentation>The GSM 03.38 (7-bit) basic character set</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Unicode">
+        <xs:annotation>
+          <xs:documentation>The Unicode (UTF 8-bit) character set</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:attribute name="elementat" type="xs:positiveInteger"/>
+           
+  <xs:element name="response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="messages">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="message" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="parts" type="xs:nonNegativeInteger">
+                      <xs:annotation>
+                        <xs:documentation>The calculated number of parts the message will consume, based upon the character set.</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="characterset" type="ns:charactersetType">
+                      <xs:annotation>
+                        <xs:documentation>The character set used when analysing the message.</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="availablecharactersinlastpart" type="xs:short">
+                      <xs:annotation>
+                        <xs:documentation>The number of characters that are available for use in the last part.</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="elementat" type="xs:nonNegativeInteger" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Specifies the index of the request message element which this response element references.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="errors" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>TODO</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
