@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "node"
+script: npm run-script build
+after_success:
+  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash deploy.sh
+env:
+  global:
+    - GH_REF: github.com/Codesleuth/esendex-raml.git
+    - secure: "Eww5DY6Bl9MHxe7LgpeI/HU0+okOObnAg5pBMadZYWP+T4kaltUlUzIDpXli5g+QXV5bLGUKhyrxv3bjLSXNZcMjsxKw40CroNFHlPS3OJu4SkbXPzxfiMavhJrGZyYD9d5Wiwh92G+CC2Cmq7hMAsrGOOuXEGbYxIjN/JqBB1xYbXP3/5yWjaC1DTpVZxDto6vMgmO+LkyOU49a3Eo1VsG354+x2WuGAVywghFaVPcQVuGjcmtYhOLBQtMeZm4cY75xB1A6kqOdtw8dTwQPZRTBXvFtCL9/FaeReGHAYP2mNAA4MOsSSXyjLnxNcDb/fVtXjLuliwRi2TbMlZxH809EC6/5COyy5RfLAij1VWKr4ctkYG6MSm0nhj21GQVoUOED2HLyY9xrHeafolNVFwzUBWETf5C5IYfsBImUADTMgkYVoZ41igzpq0+HKnGfkpirNsowLq2MgQdb4PyQfDt84P+OvMAHi1QcVe0y5oaKtXBQ9ucM2waCCuStE71Is/uG8R2Ql+65O6G/hWqVSnI/EHMlwu+oJGUXN2jzrRzuCdvTozFFLr+iO+EjdIH82Cj4JSkRcznG/F2qev8SOwVxrgEtcwcGtW2n3poO7qOXbEUgUD628D/ifujaBrRLHZv+gau8AKjj4+2pPVR3s7lyejJDazo6DMCUwlEswuE="
