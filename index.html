@@ -1,0 +1,754 @@
+<!DOCTYPE HTML><html><head><title>Esendex API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/kevinrenskers/raml2html 2.1.2"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script><script type="text/javascript">
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          try {
+            if (history && history.replaceState) {
+                history.replaceState({}, '', '#');
+            }
+          } catch(e) {}
+        });
+      });
+    </script><style>
+      .hljs {
+        background: transparent;
+      }
+      .parent {
+        color: #999;
+      }
+      .list-group-item > .badge {
+        float: none;
+        margin-right: 6px;
+      }
+      .panel-title > .methods {
+        float: right;
+      }
+      .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+      }
+      .badge_get {
+        background-color: #63a8e2;
+      }
+      .badge_post {
+        background-color: #6cbd7d;
+      }
+      .badge_put {
+        background-color: #22bac4;
+      }
+      .badge_delete {
+        background-color: #d26460;
+      }
+      .badge_patch {
+        background-color: #ccc444;
+      }
+      .list-group, .panel-group {
+        margin-bottom: 0;
+      }
+      .panel-group .panel+.panel-white {
+        margin-top: 0;
+      }
+      .panel-group .panel-white {
+        border-bottom: 1px solid #F5F5F5;
+        border-radius: 0;
+      }
+      .panel-white:last-child {
+        border-bottom-color: white;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .panel-white .panel-heading {
+        background: white;
+      }
+      .tab-pane ul {
+        padding-left: 2em;
+      }
+      .tab-pane h2 {
+        font-size: 1.2em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ddd;
+      }
+      .tab-pane h3 {
+        font-size: 1.1em;
+      }
+      .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+      }
+      #sidebar {
+        margin-top: 30px;
+        padding-right: 5px;
+        overflow: auto;
+        height: 90%;
+      }
+      .top-resource-description {
+        border-bottom: 1px solid #ddd;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description {
+        border-bottom: 1px solid #fcfcfc;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description p:last-child {
+        margin: 0;
+      }
+      .list-group .badge {
+        float: left;
+      }
+      .method_description {
+        margin-left: 85px;
+      }
+      .method_description p:last-child {
+        margin: 0;
+      }
+      .list-group-item {
+        cursor: pointer;
+      }
+      .list-group-item:hover {
+        background-color: #f5f5f5;
+      }
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>Esendex API documentation <small>version 2015-12-18</small></h1><p>https://api.esendex.com</p></div><div class="panel panel-default"><div class="panel-heading"><h3 id="v1_0" class="panel-title">/v1.0</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_v1_0_messagedispatcher"><span class="parent">/v1.0</span>/messagedispatcher</a> <span class="methods"><a href="#v1_0_messagedispatcher_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_v1_0_messagedispatcher" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>The Message Dispatcher resource can be used to send one or more SMS and Voice messages either straight away or scheduled in the future at a later point. The XML request object will contain the details of the message(s) to be sent and will generate a message batch response containing a URI to allow future queries to discover the status of the message(s).</p></div><div class="list-group"><div onclick="window.location.href = '#v1_0_messagedispatcher_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="v1_0_messagedispatcher_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/v1.0</span>/messagedispatcher</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>Esendex requires Basic Authentication for every API request</p></div><ul class="nav nav-tabs"><li class="active"><a href="#v1_0_messagedispatcher_post_request" data-toggle="tab">Request</a></li><li><a href="#v1_0_messagedispatcher_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v1_0_messagedispatcher_post_request"><h3>Body</h3><p><strong>Type: application/xml</strong></p><p><strong>Schema</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="ISO-8859-1" ?&gt;
+&lt;xs:schema attributeFormDefault="unqualified"
+           elementFormDefault="unqualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:simpleType name="langType"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="en-GB"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;English UK&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+      &lt;/xs:enumeration&gt;
+      &lt;xs:enumeration value="en-AU"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;English-Australian&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+      &lt;/xs:enumeration&gt;
+      &lt;xs:enumeration value="fr-FR"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;French&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+      &lt;/xs:enumeration&gt;
+      &lt;xs:enumeration value="es-ES"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;Spanish&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+      &lt;/xs:enumeration&gt;
+      &lt;xs:enumeration value="de-DE"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;German&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+      &lt;/xs:enumeration&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="charactersetType"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="GSM"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;GSM 03.38&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+      &lt;/xs:enumeration&gt;
+      &lt;xs:enumeration value="Unicode"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;Unicode&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+      &lt;/xs:enumeration&gt;
+      &lt;xs:enumeration value="Auto"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;Automatically select between GSM and Unicode&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+      &lt;/xs:enumeration&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:simpleType name="typeType"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="SMS"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;A short message&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+      &lt;/xs:enumeration&gt;
+      &lt;xs:enumeration value="Voice"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;A voice message&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+      &lt;/xs:enumeration&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:element name="messages"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="accountreference" type="xs:string" minOccurs="1" maxOccurs="1"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Required: The Esendex Account reference that the messages should be sent from. This is a required element.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="from" type="xs:string" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The default alphanumeric originator that the message appears to originate from. Can be overridden on a per message basis. 
+This must be either a valid phone number or an alphanumeric value with a maximum length of 11 characters, that may contain letters, numbers and the following special characters: 
+* $ ? ! &amp;quot; # % &amp;amp; _ - , @ &#39; +&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="type" type="typeType" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The default type of all messages to be sent: either SMS or Voice. Can be overridden on a per-message basis.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="lang" type="langType" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Voice only: The default language to use for all Voice SMS messages in this request. Currently supports: en-GB (English UK), en-AU(English-Australian), fr-FR (French), es-ES (Spanish) and de-DE (German).&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="retries" type="xs:integer" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Voice only: The default number of times for all messages in this request to attempt to call and deliver a Voice SMS message.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="validity" type="xs:integer" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;SMS only: The default validity period in hours for all messages in this request (defaults to 0 which indicates the MAX allowed).&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="sendat" type="xs:string" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The time to schedule the messages for delivery for all messages in this request. It cannot be overridden on a per-message basis. 
+The format is yyyy-MM-ddThh:mm:ssZ where y=year, M=month, d=day, T=separator, h=hour, m=min and s=seconds. The value is treated as per ISO 8601 semantics, e.g. without time zone information the value is assumed to be the local time of the server, otherwise as an offset from UTC with Z representing a UTC time&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="characterset" type="charactersetType" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The default character set of the messages to be used when not specified within each message. Valid values are: GSM, Unicode and Auto.
+When using Auto the most appropriate character set is automatically detected. The default value is GSM.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="message" maxOccurs="unbounded"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="from" type="xs:string" minOccurs="0" maxOccurs="1"&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;The alphanumeric originator for the message to appear to originate from. This will override any &lt;from&gt; value set in the &lt;messages&gt; section.
+This must be either a valid phone number or an alphanumeric value with a maximum length of 11 characters, that may contain letters, numbers and the following special characters: 
+* $ ? ! &amp;quot; # % &amp;amp; _ - , . @ &#39; +&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="to" type="xs:string" minOccurs="1" maxOccurs="1"&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;Required: The telephone number or numbers to send this message to. Multiple telephone numbers must be comma separated.&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="type" type="typeType" minOccurs="0" maxOccurs="1"&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;The type of the message to be sent: either SMS or Voice. If no type is specified, the default is SMS.&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="body" type="xs:string" minOccurs="1" maxOccurs="1"&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;Required: The message content.&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="lang" type="langType" minOccurs="0" maxOccurs="1"&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;Required for Voice only: The language to use for this Voice SMS message. Currently supports: en-GB (English UK), en-AU (English Australian), fr-FR(French), es-ES (Spanish) and de-DE (German).&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="retries" type="xs:integer" minOccurs="0" maxOccurs="1"&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;Voice only: The number of times to attempt to call and deliver a Voice SMS message.&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="validity" type="xs:integer" minOccurs="0" maxOccurs="1"&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;SMS only: The validity period for this message in hours (defaults to 0 which indicates the MAX allowed).&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="characterset" type="charactersetType" minOccurs="0" maxOccurs="1"&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;The character set of the message to be used. Valid values are: GSM, Unicode and Auto.
+When using Auto the most appropriate character set is automatically detected. The default value is GSM, unless specified in the messages element.&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</code></pre><p><strong>Example</strong>:</p><pre><code>&lt;?xml version=&#39;1.0&#39; encoding=&#39;UTF-8&#39;?&gt;  
+&lt;messages&gt;  
+  &lt;accountreference&gt;EX0000000&lt;/accountreference&gt;
+  &lt;message&gt;
+    &lt;to&gt;447700900123&lt;/to&gt;
+    &lt;body&gt;Every message matters!&lt;/body&gt;
+  &lt;/message&gt;  
+&lt;/messages&gt;</code></pre></div><div class="tab-pane" id="v1_0_messagedispatcher_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/xml</strong></p><p><strong>Schema</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="ISO-8859-1" ?&gt;
+&lt;xs:schema attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           targetNamespace="http://api.esendex.com/ns/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="messageheaders"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="messageheader" maxOccurs="unbounded"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:attribute name="uri" type="xs:string"&gt;
+              &lt;xs:annotation&gt;
+                &lt;xs:documentation&gt;The URI of this messageheader resource&lt;/xs:documentation&gt;
+              &lt;/xs:annotation&gt;
+            &lt;/xs:attribute&gt;
+            &lt;xs:attribute name="id" type="xs:string"&gt;
+              &lt;xs:annotation&gt;
+                &lt;xs:documentation&gt;The ID of this messageheader resource&lt;/xs:documentation&gt;
+              &lt;/xs:annotation&gt;
+            &lt;/xs:attribute&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+      &lt;xs:attribute name="batchid" type="xs:string"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;The ID of the messagebatch resource&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+      &lt;/xs:attribute&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</code></pre><p><strong>Example</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt; 
+&lt;messageheaders batchid="F8BF9867-FF81-49E4-ACC5-774DE793B776" 
+                xmlns="http://api.esendex.com/ns/"&gt; 
+  &lt;messageheader uri="https://api.esendex.com/v1.0/messageheaders/1183C73D-2E62-4F60-B610-30F160BDFBD5" id="1183C73D-2E62-4F60-B610-30F160BDFBD5" /&gt; 
+&lt;/messageheaders&gt;</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_v1_0_accounts"><span class="parent">/v1.0</span>/accounts</a> <span class="methods"><a href="#v1_0_accounts_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_v1_0_accounts" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#v1_0_accounts_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="v1_0_accounts_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/v1.0</span>/accounts</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>Esendex requires Basic Authentication for every API request</p></div><ul class="nav nav-tabs"><li><a href="#v1_0_accounts_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane" id="v1_0_accounts_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/xml</strong></p><p><strong>Example</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt; 
+&lt;accounts xmlns="http://api.esendex.com/ns/"&gt; 
+  &lt;account id="A00F0218-510D-423D-A74E-5A65342FE070" uri="http://api.esendex.com/v1.0/accounts/A00F0218-510D-423D-A74E-5A65342FE070"&gt; 
+    &lt;reference&gt;EX0000000&lt;/reference&gt; 
+    &lt;label&gt;EX0000000&lt;/label&gt; 
+    &lt;address&gt;447700900654&lt;/address&gt; 
+    &lt;type&gt;Professional&lt;/type&gt; 
+    &lt;messagesremaining&gt;2000&lt;/messagesremaining&gt; 
+    &lt;expireson&gt;2999-02-25T00:00:00&lt;/expireson&gt; 
+    &lt;role&gt;PowerUser&lt;/role&gt; 
+    &lt;settings uri="http://api.esendex.com/v1.0/accounts/A00F0218-510D-423D-A74E-5A65342FE070/settings" /&gt; 
+  &lt;/account&gt; 
+&lt;/accounts&gt;</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_v1_0_accounts__accountId_"><span class="parent">/v1.0/accounts</span>/{accountId}</a> <span class="methods"><a href="#v1_0_accounts__accountId__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#v1_0_accounts__accountId__put"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_v1_0_accounts__accountId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#v1_0_accounts__accountId__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div><div onclick="window.location.href = '#v1_0_accounts__accountId__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="v1_0_accounts__accountId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/v1.0/accounts</span>/{accountId}</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>Esendex requires Basic Authentication for every API request</p></div><ul class="nav nav-tabs"><li class="active"><a href="#v1_0_accounts__accountId__get_request" data-toggle="tab">Request</a></li><li><a href="#v1_0_accounts__accountId__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v1_0_accounts__accountId__get_request"><h3>URI Parameters</h3><ul><li><strong>Account ID</strong>: <em>required (string - minLength: 36 - maxLength: 36 - pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$)</em></li></ul></div><div class="tab-pane" id="v1_0_accounts__accountId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/xml</strong></p><p><strong>Example</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt; 
+&lt;account id="D35FA8EB-3C12-4E8E-8DEC-8568B2F35890" uri="http://api.esendex.com/v1.0/accounts/D35FA8EB-3C12-4E8E-8DEC-8568B2F35890" xmlns="http://api.esendex.com/ns/"&gt; 
+  &lt;reference&gt;EX0000000&lt;/reference&gt; 
+  &lt;label&gt;EX0000000&lt;/label&gt; 
+  &lt;address&gt;447700900654&lt;/address&gt; 
+  &lt;type&gt;Professional&lt;/type&gt; 
+  &lt;messagesremaining&gt;2000&lt;/messagesremaining&gt; 
+  &lt;expireson&gt;2999-02-25T00:00:00&lt;/expireson&gt; 
+  &lt;role&gt;PowerUser&lt;/role&gt; 
+  &lt;settings uri="http://api.esendex.com/v1.0/accounts/A00F0218-510D-423D-A74E-5A65342FE070/settings" /&gt; 
+&lt;/account&gt;</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="v1_0_accounts__accountId__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/v1.0/accounts</span>/{accountId}</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>Esendex requires Basic Authentication for every API request</p></div><ul class="nav nav-tabs"><li class="active"><a href="#v1_0_accounts__accountId__put_request" data-toggle="tab">Request</a></li><li><a href="#v1_0_accounts__accountId__put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v1_0_accounts__accountId__put_request"><h3>URI Parameters</h3><ul><li><strong>Account ID</strong>: <em>required (string - minLength: 36 - maxLength: 36 - pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$)</em></li></ul><h3>Body</h3><p><strong>Type: application/xml</strong></p><p><strong>Schema</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="ISO-8859-1" ?&gt;
+&lt;xs:schema attributeFormDefault="qualified"
+           elementFormDefault="qualified"
+           targetNamespace="http://api.esendex.com/ns/"
+           xmlns:ns="http://api.esendex.com/ns/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="account"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="label" type="xs:string" minOccurs="1" maxOccurs="1"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;A text label for the Account. This will appear in Esendex applications and can be used to give the Account a "friendly name". Can be from 0 to 50 characters long.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</code></pre><p><strong>Example</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt; 
+&lt;account xmlns="http://api.esendex.com/ns/"&gt; 
+  &lt;label&gt;My Label&lt;/label&gt;
+&lt;/account&gt;</code></pre></div><div class="tab-pane" id="v1_0_accounts__accountId__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_v1_0_accounts__accountId__settings"><span class="parent">/v1.0/accounts/{accountId}</span>/settings</a> <span class="methods"><a href="#v1_0_accounts__accountId__settings_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#v1_0_accounts__accountId__settings_put"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_v1_0_accounts__accountId__settings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#v1_0_accounts__accountId__settings_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div><div onclick="window.location.href = '#v1_0_accounts__accountId__settings_put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="v1_0_accounts__accountId__settings_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/v1.0/accounts/{accountId}</span>/settings</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>Esendex requires Basic Authentication for every API request</p></div><ul class="nav nav-tabs"><li class="active"><a href="#v1_0_accounts__accountId__settings_get_request" data-toggle="tab">Request</a></li><li><a href="#v1_0_accounts__accountId__settings_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v1_0_accounts__accountId__settings_get_request"><h3>URI Parameters</h3><ul><li><strong>Account ID</strong>: <em>required (string - minLength: 36 - maxLength: 36 - pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$)</em></li></ul></div><div class="tab-pane" id="v1_0_accounts__accountId__settings_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/xml</strong></p><p><strong>Example</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;accountsettings xmlns="http://api.esendex.com/ns/"&gt;
+  &lt;concurrencyid&gt;ems:00000000-0000-0000-0000-000000000000,options:b988f5ec-e9bb-41a7-b6d6-9115b3dbb78a&lt;/concurrencyid&gt;
+  &lt;outbound&gt;
+    &lt;defaultaliasenabled&gt;true&lt;/defaultaliasenabled&gt;
+    &lt;defaultalias&gt;MyAlias&lt;/defaultalias&gt;
+    &lt;defaultvalidity&gt;24&lt;/defaultvalidity&gt;
+    &lt;smstolandlineenabled&gt;false&lt;/smstolandlineenabled&gt;
+  &lt;/outbound&gt;
+  &lt;autoresponse&gt;
+    &lt;enabled&gt;false&lt;/enabled&gt;
+    &lt;message&gt;this is my auto response&lt;/message&gt;
+    &lt;type&gt;SMS&lt;/type&gt;
+    &lt;accountreference&gt;EX000000&lt;/accountreference&gt;
+  &lt;/autoresponse&gt;
+  &lt;emailforwarding&gt;
+    &lt;enabled&gt;false&lt;/enabled&gt;
+    &lt;emailaddress&gt;email@server.com&lt;/emailaddress&gt;
+    &lt;omitfooter&gt;false&lt;/omitfooter&gt;
+    &lt;hideoriginator&gt;false&lt;/hideoriginator&gt;
+  &lt;/emailforwarding&gt;
+  &lt;emailnotification&gt;
+    &lt;deliveryenabled&gt;false&lt;/deliveryenabled&gt;
+    &lt;failedenabled&gt;false&lt;/failedenabled&gt;
+  &lt;/emailnotification&gt;
+  &lt;emailgeneral&gt;
+    &lt;directreplyenabled&gt;false&lt;/directreplyenabled&gt;
+    &lt;directreplyincludeoriginalmessage&gt;false&lt;/directreplyincludeoriginalmessage&gt;
+    &lt;signaturemarker&gt;---&lt;/signaturemarker&gt;
+  &lt;/emailgeneral&gt;
+  &lt;pushnotifications&gt;
+    &lt;alertemailenabled&gt;false&lt;/alertemailenabled&gt;
+    &lt;alertemailaddress&gt;email@server.com&lt;/alertemailaddress&gt;
+  &lt;/pushnotifications&gt;
+  &lt;voice&gt;
+    &lt;skipfirstvoicemenu&gt;false&lt;/skipfirstvoicemenu&gt;
+  &lt;/voice&gt;
+&lt;/accountsettings&gt;</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="v1_0_accounts__accountId__settings_put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/v1.0/accounts/{accountId}</span>/settings</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>Esendex requires Basic Authentication for every API request</p></div><ul class="nav nav-tabs"><li class="active"><a href="#v1_0_accounts__accountId__settings_put_request" data-toggle="tab">Request</a></li><li><a href="#v1_0_accounts__accountId__settings_put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v1_0_accounts__accountId__settings_put_request"><h3>URI Parameters</h3><ul><li><strong>Account ID</strong>: <em>required (string - minLength: 36 - maxLength: 36 - pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$)</em></li></ul><h3>Body</h3><p><strong>Type: application/xml</strong></p><p><strong>Schema</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="ISO-8859-1" ?&gt;
+&lt;xs:schema attributeFormDefault="qualified"
+           elementFormDefault="qualified"
+           targetNamespace="http://api.esendex.com/ns/"
+           xmlns:ns="http://api.esendex.com/ns/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:simpleType name="concurrencyidType"&gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:pattern value="ems:00000000-0000-0000-0000-000000000000,\s*options:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:element name="accountsettings"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element minOccurs="1" maxOccurs="1" name="concurrencyid" type="ns:concurrencyidType"/&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</code></pre><p><strong>Example</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt; 
+&lt;accountsettings xmlns="http://api.esendex.com/ns/"&gt;
+  &lt;concurrencyid&gt;ems:00000000-0000-0000-0000-000000000000, options:C9D87BA9-2736-4F5C-BE0E-3B57997D813D&lt;/concurrencyid&gt; 
+  &lt;outbound&gt; 
+    &lt;defaultaliasenabled&gt;true&lt;/defaultaliasenabled&gt; 
+    &lt;defaultalias&gt;MyAlias&lt;/defaultalias&gt; 
+    &lt;defaultvalidity&gt;24&lt;/defaultvalidity&gt; 
+  &lt;/outbound&gt; 
+  &lt;autoresponse&gt; 
+    &lt;enabled&gt;false&lt;/enabled&gt; 
+    &lt;message&gt;this is my auto response&lt;/message&gt; 
+    &lt;type&gt;SMS&lt;/type&gt; 
+  &lt;/autoresponse&gt; 
+&lt;/accountsettings&gt;</code></pre></div><div class="tab-pane" id="v1_0_accounts__accountId__settings_put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/xml</strong></p><p><strong>Example</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;accountsettings xmlns="http://api.esendex.com/ns/"&gt;
+  &lt;concurrencyid&gt;ems:00000000-0000-0000-0000-000000000000,options:b988f5ec-e9bb-41a7-b6d6-9115b3dbb78a&lt;/concurrencyid&gt;
+  &lt;outbound&gt;
+    &lt;defaultaliasenabled&gt;true&lt;/defaultaliasenabled&gt;
+    &lt;defaultalias&gt;MyAlias&lt;/defaultalias&gt;
+    &lt;defaultvalidity&gt;24&lt;/defaultvalidity&gt;
+    &lt;smstolandlineenabled&gt;false&lt;/smstolandlineenabled&gt;
+  &lt;/outbound&gt;
+  &lt;autoresponse&gt;
+    &lt;enabled&gt;false&lt;/enabled&gt;
+    &lt;message&gt;this is my auto response&lt;/message&gt;
+    &lt;type&gt;SMS&lt;/type&gt;
+    &lt;accountreference&gt;EX000000&lt;/accountreference&gt;
+  &lt;/autoresponse&gt;
+  &lt;emailforwarding&gt;
+    &lt;enabled&gt;false&lt;/enabled&gt;
+    &lt;emailaddress&gt;email@server.com&lt;/emailaddress&gt;
+    &lt;omitfooter&gt;false&lt;/omitfooter&gt;
+    &lt;hideoriginator&gt;false&lt;/hideoriginator&gt;
+  &lt;/emailforwarding&gt;
+  &lt;emailnotification&gt;
+    &lt;deliveryenabled&gt;false&lt;/deliveryenabled&gt;
+    &lt;failedenabled&gt;false&lt;/failedenabled&gt;
+  &lt;/emailnotification&gt;
+  &lt;emailgeneral&gt;
+    &lt;directreplyenabled&gt;false&lt;/directreplyenabled&gt;
+    &lt;directreplyincludeoriginalmessage&gt;false&lt;/directreplyincludeoriginalmessage&gt;
+    &lt;signaturemarker&gt;---&lt;/signaturemarker&gt;
+  &lt;/emailgeneral&gt;
+  &lt;pushnotifications&gt;
+    &lt;alertemailenabled&gt;false&lt;/alertemailenabled&gt;
+    &lt;alertemailaddress&gt;email@server.com&lt;/alertemailaddress&gt;
+  &lt;/pushnotifications&gt;
+  &lt;voice&gt;
+    &lt;skipfirstvoicemenu&gt;false&lt;/skipfirstvoicemenu&gt;
+  &lt;/voice&gt;
+&lt;/accountsettings&gt;</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_v1_0_messageheaders"><span class="parent">/v1.0</span>/messageheaders</a> <span class="methods"><a href="#v1_0_messageheaders_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_v1_0_messageheaders" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>The Message Headers resource can be used to query messages which have been sent from an Esendex Account. It also allows individual Messages to be queried for more details.</p></div><div class="list-group"><div onclick="window.location.href = '#v1_0_messageheaders_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>This resource is paged</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="v1_0_messageheaders_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/v1.0</span>/messageheaders</h4></div><div class="modal-body"><div class="alert alert-info"><p>This resource is paged</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>Esendex requires Basic Authentication for every API request</p></div><ul class="nav nav-tabs"><li class="active"><a href="#v1_0_messageheaders_get_request" data-toggle="tab">Request</a></li><li><a href="#v1_0_messageheaders_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v1_0_messageheaders_get_request"><h3>Query Parameters</h3><ul><li><strong>startindex</strong>: <em>(number)</em><p>The zero-based index of the first resource to return</p></li><li><strong>count</strong>: <em>(number - default: 100)</em><p>The number of resources to return</p></li></ul></div><div class="tab-pane" id="v1_0_messageheaders_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/xml</strong></p><p><strong>Example</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt; 
+&lt;messageheaders startindex="0" count="15" totalcount="200" xmlns="http://api.esendex.com/ns/"&gt; 
+  &lt;messageheader id="1B9A0D33-4B76-4A9D-919C-1165A9CF1565" uri="http://api.esendex.com/v1.0/messageheaders/1B9A0D33-4B76-4A9D-919C-1165A9CF1565/"&gt;
+    &lt;reference&gt;EX0000000&lt;/reference&gt; 
+    &lt;status&gt;Delivered&lt;/status&gt; 
+    &lt;laststatusat&gt;2012-01-01T12:00:05.000&lt;/laststatusat&gt; 
+    &lt;submittedat&gt;2012-01-01T12:00:02.000&lt;/submittedat&gt; 
+    &lt;type&gt;SMS&lt;/type&gt; 
+    &lt;to&gt; 
+      &lt;phonenumber&gt;447700900123&lt;/phonenumber&gt; 
+    &lt;/to&gt;
+    &lt;from&gt; 
+     &lt;phonenumber&gt;447700900654&lt;/phonenumber&gt; 
+    &lt;/from&gt; 
+    &lt;summary&gt;Testing REST API&lt;/summary&gt; 
+    &lt;body uri="http://api.esendex.com/v1.0/messageheaders/1B9A0D33-4B76-4A9D-919C-1165A9CF1565/body"/&gt; 
+    &lt;direction&gt;Outbound&lt;/direction&gt; 
+    &lt;parts&gt;1&lt;/parts&gt; 
+    &lt;username&gt;user@example.com&lt;/username&gt; 
+  &lt;/messageheader&gt;
+&lt;/messageheaders&gt;</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_v1_0_messageheaders__messageHeaderId_"><span class="parent">/v1.0/messageheaders</span>/{messageHeaderId}</a> <span class="methods"><a href="#v1_0_messageheaders__messageHeaderId__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_v1_0_messageheaders__messageHeaderId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#v1_0_messageheaders__messageHeaderId__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="v1_0_messageheaders__messageHeaderId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/v1.0/messageheaders</span>/{messageHeaderId}</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>Esendex requires Basic Authentication for every API request</p></div><ul class="nav nav-tabs"><li class="active"><a href="#v1_0_messageheaders__messageHeaderId__get_request" data-toggle="tab">Request</a></li><li><a href="#v1_0_messageheaders__messageHeaderId__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v1_0_messageheaders__messageHeaderId__get_request"><h3>URI Parameters</h3><ul><li><strong>Message Header ID</strong>: <em>required (string - minLength: 36 - maxLength: 36 - pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$)</em></li></ul></div><div class="tab-pane" id="v1_0_messageheaders__messageHeaderId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/xml</strong></p><p><strong>Example</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;  
+&lt;messageheader id="CDEB3533-1F76-46D7-A2A9-0DAF8290F7FC" uri="http://api.esendex.com/v1.0/messageheaders/CDEB3533-1F76-46D7-A2A9-0DAF8290F7FC/" xmlns="http://api.esendex.com/ns/"&gt;  
+  &lt;status&gt;Delivered&lt;/status&gt; 
+  &lt;laststatusat&gt;2010-01-01T12:00:05.000&lt;/laststatusat&gt; 
+  &lt;submittedat&gt;2010-01-01T12:00:02.000&lt;/submittedat&gt; 
+  &lt;type&gt;SMS&lt;/type&gt; 
+  &lt;to&gt; 
+    &lt;phonenumber&gt;447700900123&lt;/phonenumber&gt; 
+  &lt;/to&gt;
+  &lt;from&gt; 
+    &lt;phonenumber&gt;447700900654&lt;/phonenumber&gt; 
+  &lt;/from&gt; 
+  &lt;summary&gt;Testing REST API&lt;/summary&gt; 
+  &lt;body uri="http://api.esendex.com/v1.0/messageheaders/CDEB3533-1F76-46D7-A2A9-0DAF8290F7FC/body"/&gt; 
+  &lt;direction&gt;Outbound&lt;/direction&gt; 
+  &lt;parts&gt;1&lt;/parts&gt; 
+  &lt;username&gt;user@example.com&lt;/username&gt; 
+&lt;/messageheader&gt;</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_v1_0_inbox_messages"><span class="parent">/v1.0/inbox</span>/messages</a> <span class="methods"><a href="#v1_0_inbox_messages_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_v1_0_inbox_messages" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>The Inbox resource can be used to query Messages which have been received into an Esendex Account. The most common uses of the Inbox resource are to &#39;pull&#39; (retrieve) the Inbound Messages and delete those Messages that have been processed.</p></div><div class="list-group"><div onclick="window.location.href = '#v1_0_inbox_messages_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>This resource is paged</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="v1_0_inbox_messages_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/v1.0/inbox</span>/messages</h4></div><div class="modal-body"><div class="alert alert-info"><p>This resource is paged</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>Esendex requires Basic Authentication for every API request</p></div><ul class="nav nav-tabs"><li class="active"><a href="#v1_0_inbox_messages_get_request" data-toggle="tab">Request</a></li><li><a href="#v1_0_inbox_messages_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v1_0_inbox_messages_get_request"><h3>Query Parameters</h3><ul><li><strong>startindex</strong>: <em>(number)</em><p>The zero-based index of the first resource to return</p></li><li><strong>count</strong>: <em>(number - default: 100)</em><p>The number of resources to return</p></li><li><strong>The start date to filter the results from, represented in ISO 8601 format.</strong>: <em>(string - minLength: 20 - maxLength: 25 - pattern: ^\d{4}-\d{2}-\d{2}T\d{2}\:\d{2}\:\d{2}(?:[+-]\d{2}\:\d{2})|Z$)</em></li><li><strong>The end date to filter the results to, represented in ISO 8601 format.</strong>: <em>(string - minLength: 20 - maxLength: 25 - pattern: ^\d{4}-\d{2}-\d{2}T\d{2}\:\d{2}\:\d{2}(?:[+-]\d{2}\:\d{2})|Z$)</em><p><strong>Example</strong>:</p><pre>2016-01-04T13:18:20Z</pre></li></ul></div><div class="tab-pane" id="v1_0_inbox_messages_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/xml</strong></p><p><strong>Example</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt; 
+&lt;messageheaders startindex="0" count="15" totalcount="200" xmlns="http://api.esendex.com/ns/"&gt; 
+  &lt;messageheader id="C74A7192-C65F-4BD1-A066-E3A4C6AF5BCE" uri="http://api.dev.lab/v1.0/messageheaders/C74A7192-C65F-4BD1-A066-E3A4C6AF5BCE"&gt;
+    &lt;reference&gt;EX0000000&lt;/reference&gt;
+    &lt;status&gt;Submitted&lt;/status&gt;
+    &lt;sentat&gt;2012-01-01T00:00:00.000Z&lt;/sentat&gt;
+    &lt;laststatusat&gt;2012-01-01T00:00:00.000Z&lt;/laststatusat&gt;
+    &lt;submittedat&gt;2012-01-01T00:00:00.000Z&lt;/submittedat&gt;
+    &lt;receivedat&gt;2012-01-01T00:00:00.000Z&lt;/receivedat&gt;
+    &lt;type&gt;SMS&lt;/type&gt;
+    &lt;to&gt;
+      &lt;phonenumber&gt;447700900123&lt;/phonenumber&gt;
+    &lt;/to&gt;
+    &lt;from&gt;
+      &lt;phonenumber&gt;447700900654&lt;/phonenumber&gt;
+    &lt;/from&gt;
+    &lt;summary&gt;Every message matters!&lt;/summary&gt;
+    &lt;body id="C74A7192-C65F-4BD1-A066-E3A4C6AF5BCE" uri="http://api.dev.lab/v1.0/messageheaders/C74A7192-C65F-4BD1-A066-E3A4C6AF5BCE/body" /&gt;
+    &lt;direction&gt;Inbound&lt;/direction&gt;
+    &lt;parts&gt;1&lt;/parts&gt;
+    &lt;readat&gt;2012-01-01T00:00:00.000Z&lt;/readat&gt;
+    &lt;readby&gt;user@example.com&lt;/readby&gt;
+  &lt;/messageheader&gt;
+&lt;/messageheaders&gt;
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_v1_0_messagesinformation"><span class="parent">/v1.0</span>/messagesinformation</a> <span class="methods"><a href="#v1_0_messagesinformation_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_v1_0_messagesinformation" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>The Messages Information resource can be used to obtain information for a message to help understand the costs involved in sending the message.</p></div><div class="list-group"><div onclick="window.location.href = '#v1_0_messagesinformation_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Analyse one or more messages for information such as the character set it falls into, and the number of parts required to send the message.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="v1_0_messagesinformation_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/v1.0</span>/messagesinformation</h4></div><div class="modal-body"><div class="alert alert-info"><p>Analyse one or more messages for information such as the character set it falls into, and the number of parts required to send the message.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>Esendex requires Basic Authentication for every API request</p></div><ul class="nav nav-tabs"><li class="active"><a href="#v1_0_messagesinformation_post_request" data-toggle="tab">Request</a></li><li><a href="#v1_0_messagesinformation_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v1_0_messagesinformation_post_request"><h3>Body</h3><p><strong>Type: application/xml</strong></p><p><strong>Schema</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="ISO-8859-1" ?&gt;
+&lt;xs:schema attributeFormDefault="qualified"
+           elementFormDefault="qualified"
+           targetNamespace="http://api.esendex.com/ns/"
+           xmlns:ns="http://api.esendex.com/ns/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+           
+  &lt;xs:simpleType name="charactersetType" &gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="GSM"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;The GSM 03.38 (7-bit) basic character set&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+      &lt;/xs:enumeration&gt;
+      &lt;xs:enumeration value="Unicode"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;The Unicode (UTF 8-bit) character set&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+      &lt;/xs:enumeration&gt;
+      &lt;xs:enumeration value="Auto"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;Automatically select or detect the character set&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+      &lt;/xs:enumeration&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+           
+  &lt;xs:element name="messages"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="characterset" type="ns:charactersetType" minOccurs="0" maxOccurs="1"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The default character set to be used when analysing message information. Valid values are: GSM, Unicode or Auto. When using Auto the character set is detected automatically, and analysis is performed using the detected character set.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="message" maxOccurs="unbounded"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="body" type="xs:string" minOccurs="0" maxOccurs="1"&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;Required: The message body to be analysed. This is a required element.&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:element&gt;
+              &lt;xs:element name="characterset" type="ns:charactersetType" minOccurs="0" maxOccurs="1"&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;The character set to be used when analysing this message. Valid values are: GSM, Unicode or Auto. When using Auto the character set is detected automatically, and analysis is performed using the detected character set. This element is required if characterset is not specified in the messages element.&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</code></pre><p><strong>Example</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;messages xmlns="http://api.esendex.com/ns/"&gt;
+ &lt;message&gt;
+  &lt;body&gt;Every message matters!&lt;/body&gt;
+  &lt;characterset&gt;Auto&lt;/characterset&gt;
+ &lt;/message&gt;
+&lt;/messages&gt;</code></pre></div><div class="tab-pane" id="v1_0_messagesinformation_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/xml</strong></p><p><strong>Schema</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="ISO-8859-1" ?&gt;
+&lt;xs:schema attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           targetNamespace="http://api.esendex.com/ns/"
+           xmlns:ns="http://api.esendex.com/ns/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+           
+  &lt;xs:simpleType name="charactersetType" &gt;
+    &lt;xs:restriction base="xs:string"&gt;
+      &lt;xs:enumeration value="GSM"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;The GSM 03.38 (7-bit) basic character set&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+      &lt;/xs:enumeration&gt;
+      &lt;xs:enumeration value="Unicode"&gt;
+        &lt;xs:annotation&gt;
+          &lt;xs:documentation&gt;The Unicode (UTF 8-bit) character set&lt;/xs:documentation&gt;
+        &lt;/xs:annotation&gt;
+      &lt;/xs:enumeration&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+
+  &lt;xs:attribute name="elementat" type="xs:positiveInteger"/&gt;
+           
+  &lt;xs:element name="response"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="messages"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="message" maxOccurs="unbounded" minOccurs="0"&gt;
+                &lt;xs:complexType&gt;
+                  &lt;xs:sequence&gt;
+                    &lt;xs:element name="parts" type="xs:nonNegativeInteger"&gt;
+                      &lt;xs:annotation&gt;
+                        &lt;xs:documentation&gt;The calculated number of parts the message will consume, based upon the character set.&lt;/xs:documentation&gt;
+                      &lt;/xs:annotation&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="characterset" type="ns:charactersetType"&gt;
+                      &lt;xs:annotation&gt;
+                        &lt;xs:documentation&gt;The character set used when analysing the message.&lt;/xs:documentation&gt;
+                      &lt;/xs:annotation&gt;
+                    &lt;/xs:element&gt;
+                    &lt;xs:element name="availablecharactersinlastpart" type="xs:short"&gt;
+                      &lt;xs:annotation&gt;
+                        &lt;xs:documentation&gt;The number of characters that are available for use in the last part.&lt;/xs:documentation&gt;
+                      &lt;/xs:annotation&gt;
+                    &lt;/xs:element&gt;
+                  &lt;/xs:sequence&gt;
+                  &lt;xs:attribute name="elementat" type="xs:nonNegativeInteger" use="required"&gt;
+                    &lt;xs:annotation&gt;
+                      &lt;xs:documentation&gt;Specifies the index of the request message element which this response element references.&lt;/xs:documentation&gt;
+                    &lt;/xs:annotation&gt;
+                  &lt;/xs:attribute&gt;
+                &lt;/xs:complexType&gt;
+              &lt;/xs:element&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+        &lt;xs:element name="errors" type="xs:string"&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;TODO&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</code></pre><p><strong>Example</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;response xmlns="http://api.esendex.com/ns/"&gt;
+ &lt;messages&gt;
+  &lt;message elementat="0"&gt;
+   &lt;parts&gt;1&lt;/parts&gt;
+   &lt;characterset&gt;GSM&lt;/characterset&gt;
+   &lt;availablecharactersinlastpart&gt;138&lt;/availablecharactersinlastpart&gt;
+  &lt;/message&gt;
+ &lt;/messages&gt;
+ &lt;errors /&gt;
+&lt;/response&gt;</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="v1_1" class="panel-title">/v1.1</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_v1_1_messagebatches"><span class="parent">/v1.1</span>/messagebatches</a> <span class="methods"><a href="#v1_1_messagebatches_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_v1_1_messagebatches" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>The Message Batches resource can be used to query the Batches of Messages which have been sent from an Esendex Account. A common use of the Message Batches resource is to retrieve a summary of the status codes for the Messages which indicates the delivery progress. Any Message Batches scheduled to be sent in sthe future can also be cancelled.</p></div><div class="list-group"><div onclick="window.location.href = '#v1_1_messagebatches_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Retrieves a list of Message Batches</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="v1_1_messagebatches_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/v1.1</span>/messagebatches</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieves a list of Message Batches</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>Esendex requires Basic Authentication for every API request</p></div><ul class="nav nav-tabs"><li class="active"><a href="#v1_1_messagebatches_get_request" data-toggle="tab">Request</a></li><li><a href="#v1_1_messagebatches_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v1_1_messagebatches_get_request"><h3>Query Parameters</h3><ul><li><strong>filterBy</strong>: <em>(string)</em><p>A filter name which must be followed by a filterValue parameter</p><p><strong>Example</strong>:</p><pre>account</pre></li><li><strong>filterValue</strong>: <em>(string)</em><p>A filter value which must follow a filterBy parameter</p><p><strong>Example</strong>:</p><pre>EX000000</pre></li><li><strong>startindex</strong>: <em>(number)</em><p>The zero-based index of the first resource to return</p></li><li><strong>count</strong>: <em>(number - default: 100)</em><p>The number of resources to return</p></li></ul></div><div class="tab-pane" id="v1_1_messagebatches_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/xml</strong></p><p><strong>Example</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;messagebatches startindex="0" count="15" totalcount="15" xmlns="http://api.esendex.com/ns/"&gt;
+  &lt;messagebatch id="642A01A6-A483-44F3-A2F2-A48B1D0FE141" uri="https://api.esendex.com/v1.1/messagebatches/642A01A6-A483-44F3-A2F2-A48B1D0FE141"&gt;
+    &lt;createdat&gt;2012-01-01T12:00:00.000Z&lt;/createdat&gt;
+    &lt;batchsize&gt;1&lt;/batchsize&gt;
+    &lt;persistedbatchsize&gt;1&lt;/persistedbatchsize&gt;
+    &lt;status&gt;
+      &lt;acknowledged&gt;0&lt;/acknowledged&gt;
+      &lt;authorisationfailed&gt;0&lt;/authorisationfailed&gt;
+      &lt;connecting&gt;0&lt;/connecting&gt;
+      &lt;delivered&gt;0&lt;/delivered&gt;
+      &lt;failed&gt;0&lt;/failed&gt;
+      &lt;partiallydelivered&gt;0&lt;/partiallydelivered&gt;
+      &lt;rejected&gt;0&lt;/rejected&gt;
+      &lt;scheduled&gt;0&lt;/scheduled&gt;
+      &lt;sent&gt;0&lt;/sent&gt;
+      &lt;submitted&gt;1&lt;/submitted&gt;
+      &lt;validityperiodexpired&gt;0&lt;/validityperiodexpired&gt;
+      &lt;cancelled&gt;0&lt;/cancelled&gt;
+    &lt;/status&gt;
+    &lt;accountreference&gt;EX0000000&lt;/accountreference&gt;
+    &lt;createdby&gt;user@example.com&lt;/createdby&gt;
+    &lt;name/&gt;
+  &lt;/messagebatch&gt;
+&lt;/messagebatches&gt;</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_v1_1_messagebatches__messageBatchId_"><span class="parent">/v1.1/messagebatches</span>/{messageBatchId}</a> <span class="methods"><a href="#v1_1_messagebatches__messageBatchId__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#v1_1_messagebatches__messageBatchId__put"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_v1_1_messagebatches__messageBatchId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#v1_1_messagebatches__messageBatchId__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Retrieves a single Message Batch identified by ID</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#v1_1_messagebatches__messageBatchId__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Sets a name for the Message Batch which will be available when subsequently retrieving the Message Batch resource</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="v1_1_messagebatches__messageBatchId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/v1.1/messagebatches</span>/{messageBatchId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieves a single Message Batch identified by ID</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>Esendex requires Basic Authentication for every API request</p></div><ul class="nav nav-tabs"><li class="active"><a href="#v1_1_messagebatches__messageBatchId__get_request" data-toggle="tab">Request</a></li><li><a href="#v1_1_messagebatches__messageBatchId__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v1_1_messagebatches__messageBatchId__get_request"><h3>URI Parameters</h3><ul><li><strong>Message Batch ID</strong>: <em>required (string - minLength: 36 - maxLength: 36 - pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$)</em></li></ul></div><div class="tab-pane" id="v1_1_messagebatches__messageBatchId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Headers</h3><ul><li><strong>ETag</strong>: <em>(string)</em><p>The concurrency ID of the Message Batch for use when setting the batch name</p><p><strong>Example</strong>:</p><pre>ETag: "e461a6a7-be6e-4e73-9221-0c9bdfe5d6d9"
+</pre></li></ul><h3>Body</h3><p><strong>Type: application/xml</strong></p><p><strong>Example</strong>:</p><pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;messagebatch xmlns="http://api.esendex.com/ns/" id="E82EB6DD-F457-4FCE-8003-AFDC66042FC9" uri="https://api.esendex.com/v1.1/messagebatches/E82EB6DD-F457-4FCE-8003-AFDC66042FC9"&gt;
+  &lt;createdat&gt;2012-01-01T12:00:00.000Z&lt;/createdat&gt;
+  &lt;batchsize&gt;1&lt;/batchsize&gt;
+  &lt;persistedbatchsize&gt;1&lt;/persistedbatchsize&gt;
+  &lt;status&gt;
+    &lt;acknowledged&gt;0&lt;/acknowledged&gt;
+    &lt;authorisationfailed&gt;0&lt;/authorisationfailed&gt;
+    &lt;connecting&gt;0&lt;/connecting&gt;
+    &lt;delivered&gt;0&lt;/delivered&gt;
+    &lt;failed&gt;0&lt;/failed&gt;
+    &lt;partiallydelivered&gt;0&lt;/partiallydelivered&gt;
+    &lt;rejected&gt;0&lt;/rejected&gt;
+    &lt;scheduled&gt;0&lt;/scheduled&gt;
+    &lt;sent&gt;0&lt;/sent&gt;
+    &lt;submitted&gt;1&lt;/submitted&gt;
+    &lt;validityperiodexpired&gt;0&lt;/validityperiodexpired&gt;
+    &lt;cancelled&gt;0&lt;/cancelled&gt;
+  &lt;/status&gt;
+  &lt;accountreference&gt;EX0000000&lt;/accountreference&gt;
+  &lt;createdby&gt;user@example.com&lt;/createdby&gt;
+  &lt;name/&gt;
+  &lt;link rel="cancel" href="https://api.esendex.com/v1.1/messagebatches/E82EB6DD-F457-4FCE-8003-AFDC66042FC9/schedule" /&gt;
+&lt;/messagebatch&gt;</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="v1_1_messagebatches__messageBatchId__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/v1.1/messagebatches</span>/{messageBatchId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Sets a name for the Message Batch which will be available when subsequently retrieving the Message Batch resource</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>Esendex requires Basic Authentication for every API request</p></div><ul class="nav nav-tabs"><li class="active"><a href="#v1_1_messagebatches__messageBatchId__put_request" data-toggle="tab">Request</a></li><li><a href="#v1_1_messagebatches__messageBatchId__put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v1_1_messagebatches__messageBatchId__put_request"><h3>URI Parameters</h3><ul><li><strong>Message Batch ID</strong>: <em>required (string - minLength: 36 - maxLength: 36 - pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$)</em></li></ul><h3>Headers</h3><ul><li><strong>If-Match</strong>: <em>(string)</em><p>When set, will fail any request where the Message Batch concurrency ID is different to the one specified</p><p><strong>Example</strong>:</p><pre>If-Match: "e461a6a7-be6e-4e73-9221-0c9bdfe5d6d9"
+</pre></li><li><strong>If-None-Match</strong>: <em>(string)</em><p>When set, will fail any request where the Message Batch concurrency ID is the same as the one specified</p><p><strong>Example</strong>:</p><pre>If-None-Match: "e461a6a7-be6e-4e73-9221-0c9bdfe5d6d9"
+</pre></li></ul></div><div class="tab-pane" id="v1_1_messagebatches__messageBatchId__put_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><h3>Headers</h3><ul><li><strong>ETag</strong>: <em>(string)</em><p>The concurrency ID of the Message Batch</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_v1_1_messagebatches__messageBatchId__schedule"><span class="parent">/v1.1/messagebatches/{messageBatchId}</span>/schedule</a> <span class="methods"><a href="#v1_1_messagebatches__messageBatchId__schedule_delete"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_v1_1_messagebatches__messageBatchId__schedule" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#v1_1_messagebatches__messageBatchId__schedule_delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>If a Message Batch is scheduled to go out at a later time and this time is outside the cut off period of 5 minutes, the Message Batch response will contain a LINK element with REL attribute with value CANCEL. The HREF attribute for the LINK element provides a URI for cancelling the sending of a scheduled Batch.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="v1_1_messagebatches__messageBatchId__schedule_delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/v1.1/messagebatches/{messageBatchId}</span>/schedule</h4></div><div class="modal-body"><div class="alert alert-info"><p>If a Message Batch is scheduled to go out at a later time and this time is outside the cut off period of 5 minutes, the Message Batch response will contain a LINK element with REL attribute with value CANCEL. The HREF attribute for the LINK element provides a URI for cancelling the sending of a scheduled Batch.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by basic<p>Esendex requires Basic Authentication for every API request</p></div><ul class="nav nav-tabs"><li class="active"><a href="#v1_1_messagebatches__messageBatchId__schedule_delete_request" data-toggle="tab">Request</a></li><li><a href="#v1_1_messagebatches__messageBatchId__schedule_delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v1_1_messagebatches__messageBatchId__schedule_delete_request"><h3>URI Parameters</h3><ul><li><strong>Message Batch ID</strong>: <em>required (string - minLength: 36 - maxLength: 36 - pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$)</em></li></ul></div><div class="tab-pane" id="v1_1_messagebatches__messageBatchId__schedule_delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#v1_0">/v1.0</a></li><li><a href="#v1_1">/v1.1</a></li></ul></div></div></div></div></body></html>
