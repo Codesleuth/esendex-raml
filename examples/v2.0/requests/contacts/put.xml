@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<contact xmlns="http://api.esendex.com/ns/">
+  <firstname>John</firstname>
+  <lastname>Smith</lastname>
+  <quickname>John's Second Phone</quickname>
+  <phonenumber>447000000001</phonenumber>
+</contact>

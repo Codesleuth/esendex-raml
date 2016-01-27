@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<contacts startindex="0" count="2" totalcount="2" xmlns="http://api.esendex.com/ns/">
+  <contact id="7d6501c7-b5d0-40d1-8907-9053ec7d2616">
+    <firstname>John</firstname>
+    <lastname>Smith</lastname>
+    <quickname>John's Home Phone</quickname>
+    <phonenumber>447000000001</phonenumber>
+    <accountreference>EX0064044</accountreference>
+    <link rel="self" href="https://api.esendex.com/v2.0/contacts/7d6501c7-b5d0-40d1-8907-9053ec7d2616" />
+    <link rel="account" href="https://api.esendex.com/v1.0/accounts/f6462f9d-87a2-4cac-97a6-5a2d9cb81997" />
+  </contact>
+  <contact id="5f552b6a-d162-477b-b10e-0046d44c132b">
+    <firstname>John</firstname>
+    <lastname>Smith</lastname>
+    <quickname>John's Work Phone</quickname>
+    <phonenumber>447000000000</phonenumber>
+    <accountreference>EX0064044</accountreference>
+    <link rel="self" href="https://api.esendex.com/v2.0/contacts/5f552b6a-d162-477b-b10e-0046d44c132b" />
+    <link rel="account" href="https://api.esendex.com/v1.0/accounts/f6462f9d-87a2-4cac-97a6-5a2d9cb81997" />
+  </contact>
+  <link rel="self" href="https://api.esendex.com/v2.0/contactgroups/d49f774b-c1bd-48d3-a718-8ee3d926ec25/contacts?count=2&amp;startIndex=0" />
+  <link rel="contactgroup" href="https://api.esendex.com/v2.0/contactgroups/d49f774b-c1bd-48d3-a718-8ee3d926ec25" />
+</contacts>

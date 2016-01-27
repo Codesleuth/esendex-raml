@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<contactgroups startindex="0" count="1" totalcount="14" xmlns="http://api.esendex.com/ns/">
+  <contactgroup id="d49f774b-c1bd-48d3-a718-8ee3d926ec25" contactcount="2">
+    <accountreference>EX0000000</accountreference>
+    <name>Friends</name>
+    <link rel="self" href="https://api.esendex.com/v2.0/contactgroups/d49f774b-c1bd-48d3-a718-8ee3d926ec25" />
+    <link rel="contacts" href="https://api.esendex.com/v2.0/contactgroups/d49f774b-c1bd-48d3-a718-8ee3d926ec25/contacts" />
+    <link rel="account" href="https://api.esendex.com/v1.0/accounts/f6462f9d-87a2-4cac-97a6-5a2d9cb81997" />
+  </contactgroup>
+  <link rel="self" href="https://api.esendex.com/v2.0/contactgroups?accountReference=EX0000000&amp;startIndex=0" />
+</contactgroups>

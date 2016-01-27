@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<contactgroup id="1ee544e3-8255-442b-b5fb-900d1ccce906" contactcount="0" xmlns="http://api.esendex.com/ns/">
+  <accountreference>EX0000000</accountreference>
+  <name>Relatives</name>
+  <link rel="self" href="https://api.esendex.com/v2.0/contactgroups/1ee544e3-8255-442b-b5fb-900d1ccce906" />
+  <link rel="contacts" href="https://api.esendex.com/v2.0/contactgroups/1ee544e3-8255-442b-b5fb-900d1ccce906/contacts" />
+  <link rel="account" href="https://api.esendex.com/v1.0/accounts/f6462f9d-87a2-4cac-97a6-5a2d9cb81997" />
+</contactgroup>

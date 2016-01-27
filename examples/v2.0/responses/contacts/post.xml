@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<response xmlns="http://api.esendex.com/ns/">
+  <contact id="5f552b6a-d162-477b-b10e-0046d44c132b">
+    <firstname>John</firstname>
+    <lastname>Smith</lastname>
+    <quickname>John's Home Phone</quickname>
+    <phonenumber>447000000001</phonenumber>
+    <accountreference>EX0000000</accountreference>
+    <link rel="self" href="https://api.esendex.com/v2.0/contacts/5f552b6a-d162-477b-b10e-0046d44c132b" />
+    <link rel="account" href="https://api.esendex.com/v1.0/accounts/f6462f9d-87a2-4cac-97a6-5a2d9cb81997" />
+  </contact>
+</response>

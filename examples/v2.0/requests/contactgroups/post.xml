@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<contactgroup xmlns="http://api.esendex.com/ns/">
+  <name>Relatives</name>
+  <accountreference>EX0000000</accountreference>
+</contactgroup>

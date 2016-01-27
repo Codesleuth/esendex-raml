@@ -1,0 +1,9 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<contactgroup id="d49f774b-c1bd-48d3-a718-8ee3d926ec25" contactcount="0" xmlns="http://api.esendex.com/ns/">
+  <accountreference>EX0000000</accountreference>
+  <name>Distant Relatives</name>
+  <link rel="self" href="https://api.esendex.com/v2.0/contactgroups/d49f774b-c1bd-48d3-a718-8ee3d926ec25" />
+  <link rel="contacts" href="https://api.esendex.com/v2.0/contactgroups/d49f774b-c1bd-48d3-a718-8ee3d926ec25/contacts" />
+  <link rel="account" href="https://api.esendex.com/v1.0/accounts/f6462f9d-87a2-4cac-97a6-5a2d9cb81997" />
+</contactgroup>

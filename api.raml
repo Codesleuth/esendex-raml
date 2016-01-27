@@ -2,7 +2,7 @@
 ---
 title: Esendex
 baseUri: https://api.esendex.com
-version: 2015-12-18
+version: 2016-01-27
 securitySchemes:
   - basic:
       description: Esendex requires Basic Authentication for every API request
@@ -29,6 +29,13 @@ traits:
           example: account
         filterValue:
           description: A filter value which must follow a filterBy parameter
+          type: string
+          example: EX000000
+  - accountReferenceFiltered:
+      description: This resource must be filtered with an account reference
+      queryParameters:
+        accountReference:
+          description: A valid account reference
           type: string
           example: EX000000
 /v1.0:
@@ -252,3 +259,155 @@ traits:
             a scheduled Batch.
           responses:
             204:
+/v2.0:
+  /contacts:
+    displayName: Contacts
+    description: |
+      The Contacts resource allows the retrieval and creation of named contacts and
+      telephone numbers. Contacts are associated with an account and must be unique by
+      both quick name and phone number within the account, and must not be the same as
+      any contact group name within the same account.
+    get:
+      displayName: Retrieve All Contacts
+      description: Retrieves a paged response of contacts within the specified account.
+      is: [paged, accountReferenceFiltered]
+      responses:
+        200:
+          body:
+            application/xml:
+              example: !include examples/v2.0/responses/contacts/get-all.xml
+    post:
+      displayName: Create a Contact
+      description: Creates a new contact and returns the created contact in the response.
+      body:
+        application/xml:
+          example: !include examples/v2.0/requests/contacts/post.xml
+      responses:
+        200:
+          body:
+            application/xml:
+              example: !include examples/v2.0/responses/contacts/post.xml
+    /{contactId}:
+      uriParameters:
+        contactId:
+          displayName: Contact ID
+          type: string
+          pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$ # a GUID
+          minLength: 36
+          maxLength: 36
+      get:
+        displayName: Retrieve a Single Contact
+        description: Retrieves a contact identified by ID.
+        responses:
+          200:
+            body:
+              application/xml:
+                example: !include examples/v2.0/responses/contacts/get-single.xml
+      put:
+        displayName: Update a Contact
+        description: Amends an existing contact.
+        body:
+          application/xml:
+            example: !include examples/v2.0/requests/contacts/put.xml
+        responses:
+          200:
+            body:
+              application/xml:
+                example: !include examples/v2.0/responses/contacts/put.xml
+      delete:
+        displayName: Delete a Contact
+        description: Deletes an existing contact. _This operation cannot be undone!_
+        responses:
+          204:
+  /contactgroups:
+    displayName: Contact Groups
+    description: |
+      The contact groups resource allows the retrieval and creation of named groups which
+      can be used to collect together one or more contacts. The name of a contact group
+      must be unique per account, and must not be the same as any contact quick names
+      within the same account.
+    get:
+      displayName: Retrieve All Contact Groups
+      description: Retrieves a paged response of contact groups within the specified account.
+      is: [paged, accountReferenceFiltered]
+      responses:
+        200:
+          body:
+            application/xml:
+              example: !include examples/v2.0/responses/contactgroups/get-all.xml
+    post:
+      displayName: Create a Contact Group
+      description: Creates a new contact group and returns the created contact group in the response.
+      body:
+        application/xml:
+          example: !include examples/v2.0/requests/contactgroups/post.xml
+      responses:
+        200:
+          body:
+            application/xml:
+              example: !include examples/v2.0/responses/contactgroups/post.xml
+    /{contactGroupId}:
+      uriParameters:
+        contactGroupId:
+          displayName: Contact Group ID
+          type: string
+          pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$ # a GUID
+          minLength: 36
+          maxLength: 36
+      get:
+        displayName: Retrieve a Single Contact Group
+        description: Retrieves a contact group identified by ID.
+        responses:
+          200:
+            body:
+              application/xml:
+                example: !include examples/v2.0/responses/contactgroups/get-single.xml
+      put:
+        displayName: Update a Contact Group
+        description: Amends an existing contact group.
+        body:
+          application/xml:
+            example: !include examples/v2.0/requests/contactgroups/put.xml
+        responses:
+          200:
+            body:
+              application/xml:
+                example: !include examples/v2.0/responses/contactgroups/put.xml
+      delete:
+        displayName: Delete a Contact Group
+        description: Deletes an existing contact group. _This operation cannot be undone!_
+        responses:
+          204:
+      /contacts:
+        get:
+          displayName: Retrieve Contacts in a Contact Group
+          description: |
+            Retrieves a paged response of contacts within the specified contact group.
+            See the contacts documentation for details of the elements returned when
+            getting contacts in a contact group.
+          responses:
+            200:
+              body:
+                application/xml:
+                  example: !include examples/v2.0/responses/contactgroups/contacts/get-all.xml
+        post:
+          displayName: Add a Contact to a Contact Group
+          description: Adds a contact to the specified contact group.
+          body:
+            application/xml:
+              example: !include examples/v2.0/requests/contactgroups/contacts/post.xml
+          responses:
+            204:
+        /{contactId}:
+          uriParameters:
+            contactId:
+              displayName: Contact ID
+              type: string
+              pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$ # a GUID
+              minLength: 36
+              maxLength: 36
+          delete:
+            displayName: Remove a Contact from a Contact Group
+            description: Removes a contact from the specified contact group.
+            responses:
+              204:
