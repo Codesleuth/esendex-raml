@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           targetNamespace="http://api.esendex.com/ns/"
+           xmlns:ns="http://api.esendex.com/ns/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="FiftyCharacterString">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="50" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:complexType name="Link">
+    <xs:attribute name="rel" type="xs:string" use="required"/>
+    <xs:attribute name="href" type="xs:string" use="required"/>
+  </xs:complexType>
+           
+  <xs:element name="response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="contact">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="firstname" type="ns:FiftyCharacterString" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>The first name of this contact.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="lastname" type="ns:FiftyCharacterString" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>The last name of this contact.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="quickname" type="ns:FiftyCharacterString" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>The quick name of this contact.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="phonenumber" type="ns:FiftyCharacterString" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>The phone number for this contact.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="accountreference" type="xs:string" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>The account reference of the account which contains this contact.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="link" type="ns:Link" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>Each link element defines the location of related resources such as the account. The self link always links back to the resource being represented. The rel attribute describes which resource the link relates to, and the href attribute contains the location of the resource.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="required">
+              <xs:annotation>
+                <xs:documentation>The unique identifier for the contact. Each contact returned will include an ID which does not change.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

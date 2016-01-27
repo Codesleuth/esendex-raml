@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           targetNamespace="http://api.esendex.com/ns/"
+           xmlns:ns="http://api.esendex.com/ns/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="FiftyCharacterString">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="50" />
+    </xs:restriction>
+  </xs:simpleType>
+           
+  <xs:element name="contact">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="firstname" type="ns:FiftyCharacterString" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>The first name of this contact. Limited to 50 characters.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="lastname" type="ns:FiftyCharacterString" minOccurs="0" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>The last name of this contact. Limited to 50 characters.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="quickname" type="ns:FiftyCharacterString" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>Required: The quick name of this contact. This must be unique per account, and must not be the same as a contact group name. Limited to 50 characters.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="phonenumber" type="ns:FiftyCharacterString" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>Required: The phone number for this contact. This must be international E.164 format excluding the &apos;+&apos; sign and without any white space, e.g. 447900000000.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="accountreference" type="xs:string" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>Required: The account reference of the account which will contain the contact.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

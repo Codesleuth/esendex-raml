@@ -281,11 +281,13 @@ traits:
       description: Creates a new contact and returns the created contact in the response.
       body:
         application/xml:
+          schema: !include schemas/v2.0/requests/contacts/post.xsd
           example: !include examples/v2.0/requests/contacts/post.xml
       responses:
         200:
           body:
             application/xml:
+              schema: !include schemas/v2.0/responses/contacts/post.xsd
               example: !include examples/v2.0/responses/contacts/post.xml
     /{contactId}:
       uriParameters:
