@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           targetNamespace="http://api.esendex.com/ns/"
+           xmlns:ns="http://api.esendex.com/ns/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="FiftyCharacterString">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="50" />
+    </xs:restriction>
+  </xs:simpleType>
+           
+  <xs:element name="contactgroup">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="name" type="ns:FiftyCharacterString" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>Required: The name of this contact group. This must be unique per account, and must not be the same as a contact quick name. Limited to 50 characters.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

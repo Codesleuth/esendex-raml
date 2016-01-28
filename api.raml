@@ -275,6 +275,7 @@ traits:
         200:
           body:
             application/xml:
+              schema: !include schemas/v2.0/responses/contacts/get-all.xsd
               example: !include examples/v2.0/responses/contacts/get-all.xml
     post:
       displayName: Create a Contact
@@ -344,11 +345,13 @@ traits:
       description: Creates a new contact group and returns the created contact group in the response.
       body:
         application/xml:
+          schema: !include schemas/v2.0/requests/contactgroups/post.xsd
           example: !include examples/v2.0/requests/contactgroups/post.xml
       responses:
         200:
           body:
             application/xml:
+              schema: !include schemas/v2.0/responses/contactgroups/post.xsd
               example: !include examples/v2.0/responses/contactgroups/post.xml
     /{contactGroupId}:
       uriParameters:
@@ -371,11 +374,13 @@ traits:
         description: Amends an existing contact group.
         body:
           application/xml:
+            schema: !include schemas/v2.0/requests/contactgroups/put.xsd
             example: !include examples/v2.0/requests/contactgroups/put.xml
         responses:
           200:
             body:
               application/xml:
+                schema: !include schemas/v2.0/responses/contactgroups/put.xsd
                 example: !include examples/v2.0/responses/contactgroups/put.xml
       delete:
         displayName: Delete a Contact Group
