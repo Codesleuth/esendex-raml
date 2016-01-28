@@ -310,11 +310,13 @@ traits:
         description: Amends an existing contact.
         body:
           application/xml:
+            schema: !include schemas/v2.0/requests/contacts/put.xsd
             example: !include examples/v2.0/requests/contacts/put.xml
         responses:
           200:
             body:
               application/xml:
+                schema: !include schemas/v2.0/responses/contacts/put.xsd
                 example: !include examples/v2.0/responses/contacts/put.xml
       delete:
         displayName: Delete a Contact
